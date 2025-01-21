@@ -33,7 +33,7 @@ class MovieStatsView(views.APIView):
 
     def get(self, request):
         total_movies = self.queryset.count()
-        movies_by_genre = self.queryset.value('genre__name').annotate(count=Count('id'))
+        movies_by_genre = self.queryset.values('genre__name').annotate(count=Count('id'))
         total_reviews = Review.objects.count()
         average_stars = Review.objects.aggregate(avg_stars=Avg('starts'))['avg_starts']
 
